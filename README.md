@@ -62,7 +62,7 @@ A modern user management system built with React, TypeScript, and Tailwind CSS. 
 
 ### 1. Clone & Install
 ### 2. Install Dependencies
-### 3. (Optional) Start JSON Server for Backend API
+### 3. Start JSON Server for Backend API
 ### 4. Start React Development Server
 ### 5.npm run dev
 ### 6.Copy the local host  and paste in the browser
