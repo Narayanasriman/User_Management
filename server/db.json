@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "userName": "Sriman Narayana",
+      "userCode": "IND",
+      "countries": [
+        "DE",
+        "AR",
+        "BE",
+        "DK",
+        "EG",
+        "FI",
+        "IS"
+      ],
+      "id": "3412"
+    },
+    {
+      "userName": "John Doe",
+      "userCode": "GN",
+      "countries": [
+        "BE",
+        "AR",
+        "JP",
+        "DK"
+      ],
+      "id": "8ed7"
+    },
+    {
+      "userName": "jake Smith",
+      "userCode": "UK",
+      "countries": [
+        "AR",
+        "DK"
+      ],
+      "id": "f697"
+    }
+  ]
+}
