@@ -9,7 +9,7 @@ interface SidebarProps {
   onCollapse: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed, onToggle, onCollapse }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed, onToggle, }) => {
   const [activeMenu, setActiveMenu] = useState('users');
 
   return (
