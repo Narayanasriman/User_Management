@@ -64,3 +64,10 @@ A modern user management system built with React, TypeScript, and Tailwind CSS. 
 
 
 >>>>>>> 993ede4119c36bfe9b106bf066630808f54a7817
+Screenshots :
+![ListPage](./assets/ListPage.png)
+![AddUser](./assets/AddUser.png)
+![EditPage](./assets/EditUser.png)
+![ViewPage](./assets/ViewPage.png)
+
+
