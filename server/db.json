@@ -1,38 +1,25 @@
 {
   "users": [
     {
-      "userName": "Sriman Narayana",
-      "userCode": "IND",
+      "id": "6e9a",
+      "userName": "sriman",
+      "userCode": "IN",
       "countries": [
-        "DE",
         "AR",
-        "BE",
         "DK",
-        "EG",
-        "FI",
-        "IS"
-      ],
-      "id": "3412"
+        "FI"
+      ]
     },
     {
-      "userName": "John Doe",
-      "userCode": "GN",
-      "countries": [
-        "BE",
-        "AR",
-        "JP",
-        "DK"
-      ],
-      "id": "8ed7"
-    },
-    {
-      "userName": "jake Smith",
+      "id": "bff5",
+      "userName": "raghul",
       "userCode": "UK",
       "countries": [
+        "BE",
         "AR",
+        "DE",
         "DK"
-      ],
-      "id": "f697"
+      ]
     }
   ]
 }

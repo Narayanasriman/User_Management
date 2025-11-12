@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useState, useEffect } from 'react';
-import { ChevronDown, LogOut, User, Settings, Menu, HelpCircle, Bell } from 'lucide-react';
+import { ChevronDown, LogOut, User, Settings, HelpCircle, Bell } from 'lucide-react';
 
 interface TopNavbarProps {
   usersCount: number;
@@ -8,15 +8,15 @@ interface TopNavbarProps {
   isCollapsed: boolean;
 }
 
-export const TopNavbar: React.FC<TopNavbarProps> = ({  onMenuClick, isCollapsed }) => {
+export const TopNavbar: React.FC<TopNavbarProps> = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState<string>('');
+  const [notificationCount] = useState(1); 
 
   useEffect(() => {
     const updateDateTime = () => {
       const now = new Date();
       
-      // Format: DD-MMM-YYYY, HH:MM AM/PM
       const day = String(now.getDate()).padStart(2, '0');
       const month = now.toLocaleString('en-US', { month: 'short' });
       const year = now.getFullYear();
@@ -36,62 +36,41 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({  onMenuClick, isCollapsed 
   }, []);
 
   return (
-    <div
-      className={`fixed top-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-20 transition-all duration-300 ${
-        isCollapsed ? 'md:left-20' : 'md:left-48'
-      } left-0`}
-    >
-      {/* Left - Menu Icon & Stats */}
-      <div className="flex items-center gap-6">
-        <button
-          onClick={onMenuClick}
-          className="p-2 hover:bg-gray-100 rounded-lg transition hidden md:block"
-        >
-          <Menu className="w-5 h-5 text-gray-700" />
+    <div className="fixed top-0 left-0 right-0 h-14 bg-[#939393] border-b border-gray-600 flex items-center justify-end px-6 z-50">
+      {/* Right - Date/Time, Icons & Profile */}
+      <div className="flex items-center gap-4">
+        {/* Date & Time */}
+        <div className="text-right">
+          <p className="text-sm font-medium text-white">{currentDateTime}</p>
+        </div>
+
+        {/* Help Icon (Question Mark) */}
+        <button className="p-2 hover:bg-gray-700 rounded-lg transition" title="Help">
+          <HelpCircle className="w-5 h-5 text-white" />
         </button>
 
-        <div className="flex flex-col">
-         <p className="text-lg font-semibold text-gray-900 uppercase tracking-wide">Users & Partners</p>
+        {/* Notification Bell with Count Badge */}
+        <button className="p-2 hover:bg-gray-700 rounded-lg transition relative" title="Notifications">
+          <Bell className="w-5 h-5 text-white" />
+          {notificationCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-black text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              {notificationCount}
+            </span>
+          )}
+        </button>
 
-          
-        </div>
-      </div>
-
-      {/* Right - Date/Time, Icons & Profile */}
-      <div className="flex items-center gap-6 ml-auto">
-        
-        {/* Date & Time */}
-        <div className="hidden lg:block text-right">
-          <p className="text-sm font-semibold text-gray-700">{currentDateTime}</p>
-        </div>
-
-        {/* Icons */}
-        <div className="flex items-center gap-2 border-l border-gray-300 pl-4">
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition" title="Help">
-            <HelpCircle className="w-5 h-5 text-gray-600" />
-          </button>
-          
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition relative" title="Notifications">
-            <Bell className="w-5 h-5 text-gray-600" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
-        </div>
+        {/* Vertical Divider */}
+        <div className="h-8 w-px bg-white"></div>
 
         {/* Profile Dropdown */}
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-lg transition"
+            className="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-700 rounded-lg transition"
           >
-            <div className="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center">
-              <span className="text-sm font-semibold text-blue-700">S</span>
-            </div>
-            <div className="hidden sm:flex flex-col items-start">
-              <p className="text-sm font-semibold text-gray-900">Srimanarayana</p>
-              <p className="text-xs text-gray-500">Admin</p>
-            </div>
+            <span className="text-sm font-medium text-white">John Lee</span>
             <ChevronDown
-              className={`w-4 h-4 text-gray-600 transition ${
+              className={`w-4 h-4 text-white transition ${
                 dropdownOpen ? 'rotate-180' : ''
               }`}
             />
@@ -102,7 +81,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({  onMenuClick, isCollapsed 
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
               <a
                 href="#"
-                className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 transition border-b"
+                className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition border-b"
               >
                 <User className="w-4 h-4" />
                 <span>My Profile</span>
@@ -110,13 +89,13 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({  onMenuClick, isCollapsed 
 
               <a
                 href="#"
-                className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 transition border-b"
+                className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition border-b"
               >
                 <Settings className="w-4 h-4" />
                 <span>Account Settings</span>
               </a>
 
-              <button className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 transition">
+              <button className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
                 <LogOut className="w-4 h-4" />
                 <span>Logout</span>
               </button>

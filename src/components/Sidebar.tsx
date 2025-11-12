@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useState } from 'react';
-import { Users, BarChart3, FileText, Settings, HelpCircle, Menu, X, } from 'lucide-react';
+import { Settings, Menu, MonitorCog, X, ChevronDown, SquareMenu, House, Tv, CreditCard, UserRound, SquareUserRound } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -9,15 +9,16 @@ interface SidebarProps {
   onCollapse: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed, onToggle, }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const [activeMenu, setActiveMenu] = useState('users');
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
   return (
     <>
       {/* Menu Button - Top Left (Mobile) */}
       <button
         onClick={onToggle}
-        className="fixed top-4 left-4 z-50 p-2 hover:bg-gray-100 rounded-lg transition md:hidden"
+        className="fixed top-16 left-4 z-40 p-2 hover:bg-gray-100 rounded-lg transition md:hidden"
       >
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
@@ -30,156 +31,198 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed, onToggle,
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Narrow with icons only */}
       <div
-       className={`fixed md:relative w-48 bg-white border-r border-gray-200 h-screen flex flex-col transition-all duration-300 z-40 ${
-  isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-} ${isCollapsed ? 'md:w-20' : 'md:w-48'}`}
-
-
+        className={`fixed md:relative w-16 bg-white border-r border-gray-200 flex flex-col transition-all duration-300 z-40 top-14 h-[calc(100vh-3.5rem)] ${
+          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}
       >
-        {/* Top Section */}
-        <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-          <div className={`flex items-center gap-2 ${isCollapsed ? 'hidden' : ''}`}>
-            {/* <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <Users className="w-6 h-6 text-white" />
-            // </div> */}
-            {/* <span className="font-semibold text-gray-900">Menu</span> */}
-          </div>
-
-          {/* {!isCollapsed && (
+        {/* Profile Circle at Top with Dropdown */}
+        <div className="p-2 pb-[14px] border-b border-gray-200">
+          <div className="relative">
             <button
-              onClick={onCollapse}
-              className="hidden md:block p-1 hover:bg-gray-100 rounded transition"
+              onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+              className="flex items-center justify-start gap-0.5 p-0.5 hover:bg-gray-100 rounded-lg transition"
             >
-              <ChevronLeft className="w-5 h-5 text-gray-700" />
+              <div className="w-7 h-7 rounded-full bg-gray-500 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-bold text-white">JL</span>
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 text-gray-700 transition flex-shrink-0 ${
+                  profileDropdownOpen ? 'rotate-180' : ''
+                }`}
+              />
             </button>
-          )} */}
+
+            {/* Dropdown Menu */}
+            {profileDropdownOpen && (
+              <div className="absolute left-full top-0 ml-2 w-52 bg-white border-2 border-gray-300 rounded-lg shadow-2xl z-50">
+                <div className="px-4 py-3 bg-gray-50 border-b-2 border-gray-200 rounded-t-lg">
+                  <p className="text-sm font-bold text-gray-900">John Lee</p>
+                  <p className="text-xs text-gray-600">john@example.com</p>
+                </div>
+                <a
+                  href="#"
+                  className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-800 hover:bg-blue-50 transition border-b border-gray-200"
+                >
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span>My Profile</span>
+                </a>
+                <a
+                  href="#"
+                  className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-800 hover:bg-blue-50 transition border-b border-gray-200"
+                >
+                  <Settings className="w-5 h-5 text-blue-600" />
+                  <span>Settings</span>
+                </a>
+                <button className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition rounded-b-lg">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  <span>Logout</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-          <div className="space-y-1">
-            {!isCollapsed && (
-              <div className="px-3 py-2">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Main</p>
-              </div>
+        <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
+          {/* Menu */}
+          <button
+            onClick={() => setActiveMenu('menu')}
+            className={`w-full flex items-center justify-center p-2.5 rounded-lg transition relative ${
+              activeMenu === 'menu'
+                ? 'text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+            title="Menu"
+          >
+            {activeMenu === 'menu' && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-black"></div>
             )}
-
-            {/* Users - Active */}
-            <button
-              onClick={() => setActiveMenu('users')}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-                activeMenu === 'users'
-                  ? 'bg-blue-100 text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:bg-gray-100'
-              } ${isCollapsed ? 'justify-center' : ''}`}
-              title="Users"
-            >
-              <Users className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span>Users</span>}
-            </button>
-
-            {/* Analytics */}
-            <button
-              onClick={() => setActiveMenu('analytics')}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-                activeMenu === 'analytics'
-                  ? 'bg-blue-100 text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:bg-gray-100'
-              } ${isCollapsed ? 'justify-center' : ''}`}
-              title="Analytics"
-            >
-              <BarChart3 className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span>Analytics</span>}
-            </button>
-
-            {/* Reports */}
-            <button
-              onClick={() => setActiveMenu('reports')}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-                activeMenu === 'reports'
-                  ? 'bg-blue-100 text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:bg-gray-100'
-              } ${isCollapsed ? 'justify-center' : ''}`}
-              title="Reports"
-            >
-              <FileText className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span>Reports</span>}
-            </button>
-
-            {/* Settings */}
-            <button
-              onClick={() => setActiveMenu('settings')}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-                activeMenu === 'settings'
-                  ? 'bg-blue-100 text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:bg-gray-100'
-              } ${isCollapsed ? 'justify-center' : ''}`}
-              title="Settings"
-            >
-              <Settings className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span>Settings</span>}
-            </button>
-          </div>
-
-          {/* Secondary Menu */}
-          <div className={`space-y-1 ${!isCollapsed ? 'pt-4 border-t border-gray-200' : 'pt-2'}`}>
-            {!isCollapsed && (
-              <div className="px-3 py-2">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Other</p>
-              </div>
-            )}
-
-            {/* Documents */}
-            <button
-              onClick={() => setActiveMenu('documents')}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-                activeMenu === 'documents'
-                  ? 'bg-blue-100 text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:bg-gray-100'
-              } ${isCollapsed ? 'justify-center' : ''}`}
-              title="Documents"
-            >
-              <FileText className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span>Documents</span>}
-            </button>
-
-            {/* Help */}
-            <button
-              onClick={() => setActiveMenu('help')}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-                activeMenu === 'help'
-                  ? 'bg-blue-100 text-blue-600 font-semibold'
-                  : 'text-gray-700 hover:bg-gray-100'
-              } ${isCollapsed ? 'justify-center' : ''}`}
-              title="Help"
-            >
-              <HelpCircle className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span>Help</span>}
-            </button>
-          </div>
-        </nav>
-
-        {/* Bottom Section - Profile */}
-        {/* {!isCollapsed && (
-          <div className="p-4 border-t border-gray-200 space-y-3">
-            <div className="flex items-center gap-3 p-2">
-              <div className="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-sm font-semibold text-blue-700">S</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 truncate">Srimanarayana</p>
-                <p className="text-xs text-gray-500 truncate">user@example.com</p>
-              </div>
+            <div className="flex flex-col items-center">
+              <SquareMenu className="w-6 h-6" />
+              <span className="text-[9px] mt-0.5">Menu</span>
             </div>
+          </button>
 
-            <button className="w-full flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition text-sm">
-              <LogOut className="w-4 h-4 flex-shrink-0" />
-              <span>Logout</span>
-            </button>
-          </div>
-        )} */}
+          {/* Properties */}
+          <button
+            onClick={() => setActiveMenu('properties')}
+            className={`w-full flex items-center justify-center p-2.5 rounded-lg transition relative ${
+              activeMenu === 'properties'
+                ? 'text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+            title="Properties"
+          >
+            {activeMenu === 'properties' && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-black"></div>
+            )}
+            <div className="flex flex-col items-center">
+              <House className="w-6 h-6" />
+              <span className="text-[9px] mt-0.5">Properties</span>
+            </div>
+          </button>
+
+          {/* TV */}
+          <button
+            onClick={() => setActiveMenu('tv')}
+            className={`w-full flex items-center justify-center p-2.5 rounded-lg transition relative ${
+              activeMenu === 'tv'
+                ? 'text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+            title="TV"
+          >
+            {activeMenu === 'tv' && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-black"></div>
+            )}
+            <div className="flex flex-col items-center">
+              <Tv className="w-6 h-6" />
+              <span className="text-[9px] mt-0.5">TV</span>
+            </div>
+          </button>
+
+          {/* Settings */}
+          <button
+            onClick={() => setActiveMenu('settings')}
+            className={`w-full flex items-center justify-center p-2.5 rounded-lg transition relative ${
+              activeMenu === 'settings'
+                ? 'text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+            title="Settings"
+          >
+            {activeMenu === 'settings' && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-black"></div>
+            )}
+            <div className="flex flex-col items-center">
+              <MonitorCog className="w-6 h-6" />
+              <span className="text-[9px] mt-0.5">Settings</span>
+            </div>
+          </button>
+
+          {/* Cards */}
+          <button
+            onClick={() => setActiveMenu('cards')}
+            className={`w-full flex items-center justify-center p-2.5 rounded-lg transition relative ${
+              activeMenu === 'cards'
+                ? 'text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+            title="Cards"
+          >
+            {activeMenu === 'cards' && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-black"></div>
+            )}
+            <div className="flex flex-col items-center">
+              <CreditCard className="w-6 h-6" />
+              <span className="text-[9px] mt-0.5">Cards</span>
+            </div>
+          </button>
+
+          {/* Profile */}
+          <button
+            onClick={() => setActiveMenu('profile')}
+            className={`w-full flex items-center justify-center p-2.5 rounded-lg transition relative ${
+              activeMenu === 'profile'
+                ? 'text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+            title="Profile"
+          >
+            {activeMenu === 'profile' && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-black"></div>
+            )}
+            <div className="flex flex-col items-center">
+              <UserRound className="w-6 h-6" />
+              <span className="text-[9px] mt-0.5">Profile</span>
+            </div>
+          </button>
+
+          {/* Users - Active */}
+          <button
+            onClick={() => setActiveMenu('users')}
+            className={`w-full flex items-center justify-center p-2.5 rounded-lg transition relative ${
+              activeMenu === 'users'
+                ? 'text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+            title="Users"
+          >
+            {activeMenu === 'users' && (
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-black"></div>
+            )}
+            <div className="flex flex-col items-center">
+              <SquareUserRound className="w-6 h-6" />
+              <span className="text-[9px] mt-0.5">Users</span>
+            </div>
+          </button>
+        </nav>
       </div>
     </>
   );
