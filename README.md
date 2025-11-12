@@ -1,48 +1,4 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
@@ -64,15 +20,7 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-=======
+        project: ['./tsconfig.node
 # User Management Application
 
 A modern user management system built with React, TypeScript, and Tailwind CSS. Features include CRUD operations, filtering, column visibility, and a responsive UI. This project uses JSON Server for mock API in development and seamlessly falls back to localStorage for data persistence when deployed (no backend required on Vercel).
@@ -113,6 +61,26 @@ A modern user management system built with React, TypeScript, and Tailwind CSS. 
 ## ⚡ Quick Start
 
 ### 1. Clone & Install
+### 2. Install Dependencies
+### 3. Start JSON Server for Backend API
+### 4. Start React Development Server
+### 5.npm run dev
+### 6.Copy the local host  and paste in the browser
+### 7.open the new terminal
+### 8.npm run server
+### 9.Here the json mock API works
+
+
+
+
+
 
 
 >>>>>>> 993ede4119c36bfe9b106bf066630808f54a7817
+Screenshots :
+![ListPage](./assets/ListPage.png)
+![AddUser](./assets/AddUser.png)
+![EditPage](./assets/EditUser.png)
+![ViewPage](./assets/ViewPage.png)
+
+
